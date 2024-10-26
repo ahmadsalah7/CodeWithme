@@ -14,7 +14,6 @@ pipeline {
                     sh 'echo Docker Username: $DOCKER_USERNAME'
                 }
             }
-        }
     stages {
         stage('Clone Repository') {
             steps {
