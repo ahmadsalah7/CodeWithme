@@ -7,13 +7,7 @@ pipeline {
         LOGIN_SERVICE_IMAGE = 'ahmadmosalah/login-service'
         COMPILER_SERVICE_IMAGE = 'ahmadmosalah/compiler-service'
     }
-    stages {
-        stage('Test Credentials') {
-            steps {
-                withCredentials([usernamePassword(credentialsId: 'dockerhub-token', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                    sh 'echo Docker Username: $DOCKER_USERNAME'
-                }
-            }
+
     stages {
         stage('Clone Repository') {
             steps {
