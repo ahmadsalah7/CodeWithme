@@ -1,1 +1,4 @@
-mysql_data_new
+mysql_data_new/
+*.env
+target/
+*.log

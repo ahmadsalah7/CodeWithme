@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Code With Me</title>
+    <link rel="stylesheet" href="compiler.css">
+</head>
+<body>
+
+<header>
+    <div class="username"></div>
+    <h1>Code With Me</h1>
+    <a href="http://127.0.0.1:5500/welcome/login_interface/"><button class="logoutBTN">Logout</button></a>
+</header>
+
+<div class="container">
+  
+    <aside class="sidebar">
+        <h2>Projects</h2>
+        <div id="projects"></div>
+    </aside>
+
+
+    <main>
+        <div class="editor-header">
+            <select id="language-select">
+                <option value="java">Java</option>
+                <option value="python">Python</option>
+                <option value="cpp">C++</option>
+            </select>
+            <div>
+                <button id="saveProjectBtn" class="savebtn">Save Project</button>
+                <button class="runbtn">RUN</button>
+            </div>
+        </div>
+
+        <div class="editor-and-io">
+            <div class="code-editor">
+                <div class="line-numbers" id="line-numbers"></div>
+                <textarea id="code-area" spellcheck="false" placeholder="Write your code here..."></textarea>
+            </div>
+        
+            <div class="input-output-boxes">
+                <textarea id="input-box" placeholder="Input..." class="input-output"></textarea>
+                <textarea id="output-box" placeholder="Output..." class="input-output" readonly></textarea>
+            </div>
+        </div>
+
+        <div class="comment-section">
+            <h3>Comments</h3>
+            <textarea id="comment-area" placeholder="Leave a comment..."></textarea>
+            <button id="addCommentBtn">Add Comment</button>
+            <div id="comments-list"></div>
+        </div>
+    </main>
+
+    <!-- Right Sidebar -->
+    <aside class="right-sidebar">
+        <div class="projectbtns">
+            <button id="newProjectBtn">New Project</button>
+            <div id="newProjectModal" class="modal">
+                <div class="modal-content">
+                    <span class="closeBtn">&times;</span>
+                    <h2>Create New Project</h2>
+                    <input type="text" id="projectName" placeholder="Enter project name" />
+                    <button id="createProjectBtn">Create Project</button>
+                </div>
+            </div>
+            <button id="deleteProjectBtn">Delete Project</button>
+
+            <button id="addcollaborators">Add Collaborators</button>
+            <div id="collaboratorModal" class="modal">
+                <div class="modal-content">
+                    <span class="closeBtn">&times;</span>
+                    <h2>Add Collaborator</h2>
+
+                    <div class="input-box">
+                        <input type="email" id="collab-email" placeholder="Email" required>
+                    </div>
+            
+                    <div class="input-box">
+                        <label for="collab-role">Select Role</label>
+                        <select id="collab-role">
+                            <option value="owner">Owner</option>
+                            <option value="editor">Editor</option>
+                            <option value="viewer">Viewer</option>
+                        </select>
+                    </div>
+            
+                    <button class="submit-btn" id="addCollabBtn">Add</button>
+                </div>
+            </div>
+
+            <!-- Delete Collaborators Button and Modal -->
+            <button id="deletecollaborators">Delete Collaborators</button>
+            <div id="deleteCollaboratorModal" class="modal">
+                <div class="modal-content">
+                    <span class="closeDeleteBtn">&times;</span>
+                    <h2>Delete Collaborator</h2>
+                    <div class="input-box">
+                        <input type="email" id="delete-collab-email" placeholder="Email" required>
+                    </div>
+                    <button class="submit-btn" id="deleteCollabBtn">Delete</button>
+                </div>
+            </div>
+            <button id="versions">Pick Version</button>
+            <div id="versionsModal" class="modal">
+                <div class="modal-content">
+                    <span class="closeVersionsBtn">&times;</span>
+                    <h2>Select Project Version</h2>                    
+                    <select id="versionDropdown" class="versionDropdown">
+                    </select>
+                    <button id="loadVersionBtn" class="loadVersionBtn">Load Selected Version</button>
+                </div>
+            </div>
+            <button id="forkBtn" class="forkBtn">Copy Project</button>
+            <div id="forkModal" class="modal">
+                <div class="modal-content">
+                    <span class="closeForkBtn">&times;</span>
+                    <h2>Copy Project</h2>
+                    <input type="text" id="forkProjectName" placeholder="Enter new project name">
+                    <button id="confirmForkBtn" class="copyBtn">Create Copy</button>
+                </div>
+            </div>
+        </div>
+
+        
+    </aside>
+</div>
+
+<script src="compiler.js"></script>
+</body>
+</html>

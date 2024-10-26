@@ -1,0 +1,134 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: url('./pictures/login-background.webp') no-repeat center center fixed;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.container {
+    width: 400px;
+    background: rgba(255, 255, 255, 0.95); 
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.form-box {
+    width: 100%;
+}
+
+.input-box {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.input-box input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #ddd;
+    outline: none;
+    border-radius: 5px;
+    background: #f9f9f9; 
+    color: #333;
+}
+
+.input-box label {
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    color: #999;
+    pointer-events: none;
+    transition: 0.5s;
+}
+
+.input-box input:focus ~ label,
+.input-box input:valid ~ label {
+    top: -15px;
+    left: 10px;
+    color: #3498db;
+    font-size: 12px;
+    background-color: white;
+    padding: 0 5px;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background: #3498db;
+    color: #fff;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.submit-btn:hover {
+    background: #2980b9;
+}
+
+.oauth-section {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.oauth-btn {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background: #f9f9f9; 
+    color: #333;
+}
+
+
+.github-btn {
+    background-color: #333;
+    color: white;
+}
+
+.google-btn:hover {
+    background-color: #c5382a;
+}
+
+.github-btn:hover {
+    background-color: #222;
+}
+
+.switch {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.switch a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+.switch a:hover {
+    text-decoration: underline;
+}
+
+.hidden {
+    display: none;
+}

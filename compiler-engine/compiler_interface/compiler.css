@@ -1,0 +1,610 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr;
+}
+
+header {
+    background-color: #34495e;
+    color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
+.logoutBTN{
+    border: 2px solid;
+    border-radius: 4px;
+    width: 150px;
+    height: 30px;
+    font-size: 18px;
+    margin: 10p
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.8em;
+    font-weight: bold;
+}
+
+.user-info {
+    position: absolute;
+    right: 20px;
+    display: inline-block;
+    width: auto; 
+}
+
+.dropdown-content {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    right: 0;
+    top: 40px; 
+    min-width: 160px;  
+    width: auto;  
+    height: auto; 
+    display: none; 
+    z-index: 1000;
+}
+
+
+.dropdown-content li {
+    padding: 10px;
+    color: #2c3e50;
+    border-bottom: 1px solid #ddd;
+    font-size: 1em;
+    text-align: left;
+}
+
+.dropdown-content li:last-child {
+    border-bottom: none;
+}
+
+.dropdown-content li:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+#logout-btn {
+    color: #e74c3c;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#logout-btn:hover {
+    color: #c0392b;
+}
+
+.user-info:hover .dropdown-content {
+    display: block;
+    opacity: 1; 
+}
+
+
+.dropdown-content {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    opacity: 0;
+    transform: translateY(-10px);
+}
+
+.user-info:hover .dropdown-content {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 200px 1fr 200px;
+    grid-template-rows: auto 1fr;
+    grid-gap: 20px;
+    padding: 20px;
+    height: 100%;
+}
+
+
+.sidebar {
+    background-color: #ecf0f1;
+    padding: 20px;
+    border-radius: 5px;
+    max-height: 100%;
+    overflow-y: auto;
+}
+
+.sidebar h2 {
+    margin-top: 0;
+}
+
+.project-header {
+    margin: 10px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.file-list {
+    list-style-type: none;
+    padding-left: 15px;
+    display: none;
+}
+
+.sidebar ul li {
+    margin-bottom: 10px;
+}
+
+.editor-header {
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+}
+.runbtn {
+    margin-right: 15px;
+    width: 100px;
+    background-color: rgb(53, 211, 53); 
+    border-radius: 5px;
+    border: 1px solid rgb(54, 136, 66);
+    color: white; 
+    font-family: 'Arial', sans-serif; 
+    font-weight: bold; 
+    font-size: 15px; 
+    padding: 10px 20px; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease, color 0.3s ease; 
+}
+
+
+.runbtn:hover {
+    background-color: rgb(34, 139, 34); 
+    color: rgb(59, 87, 7); 
+    border-color: rgb(34, 120, 34); 
+}
+
+.savebtn{
+    margin-right: 15px;
+    width: 150px;
+    background-color: rgb(53, 211, 53);
+    border-radius: 5px;
+    border: 1px solid rgb(54, 136, 66);
+    color: white;
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    font-size: 15px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+#language-select {
+    width: 100px;
+    padding: 10px;
+    border: 2px solid #3498db;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #f4f4f4;
+    cursor: pointer;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.editor-and-io {
+    display: flex;
+    gap: 20px;
+    height: 500px;
+}
+
+
+.code-editor {
+    display: grid;
+    grid-template-columns: 50px 1fr;
+    border: 2px solid #3498db;
+    border-radius: 5px;
+    flex-basis: 65%; 
+    height: 100%;
+    overflow: hidden;
+}
+
+#line-numbers {
+    background-color: #f0f0f0;
+    text-align: right;
+    padding: 10px;
+    border-right: 1px solid #ccc;
+    user-select: none;
+    color: #888;
+    overflow: hidden;
+}
+
+#code-area {
+    padding: 10px;
+    font-family: monospace;
+    border: none;
+    outline: none;
+    resize: none;
+    width: 100%;
+    height: 100%;
+    line-height: 1.5em;
+    background-color: #fdfdfd;
+    overflow-y: auto;
+}
+
+
+.input-output-boxes {
+    flex-basis: 30%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.input-output {
+    border: 2px solid #3498db;
+    border-radius: 5px;
+    padding: 10px;
+    font-family: monospace;
+    resize: none;
+    height: calc(50% - 5px); 
+    width: 100%;
+    overflow-y: auto;
+}
+
+.right-sidebar {
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    
+}
+.codebtns{
+    align-self: flex-end;
+}
+
+
+.right-sidebar button {
+    width: 100%;
+    padding: 10px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 10%;
+    margin: 10px;
+}
+
+.dropbtn {
+    width: 140px;
+    padding: 10px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 10%;
+    margin: 10px;
+}
+
+#newProjectBtn:hover {
+    background-color: #2980b9;
+}
+
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0,0,0,0.4); 
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; 
+    padding: 20px;
+    border: 1px solid #888;
+    width: 30%; 
+    border-radius: 5px;
+}
+
+#projectName {
+    margin: 10px;
+    border: 2px solid;
+    border-radius: 4px;
+    width: 70%;
+    height: 35px;
+}
+
+#createProjectBtn {
+    width: 70%;
+    padding: inherit;
+}
+
+.closeBtn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.closeBtn:hover,
+.closeBtn:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Comment Section */
+.comment-section {
+    margin-top: 20px;
+    max-height: 150px;
+    overflow-y: auto;
+    overflow-x: hidden;  
+}
+
+#comment-area {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    font-family: Arial, sans-serif;
+    resize: none;
+    overflow-x: hidden;  
+}
+
+.sidebar::-webkit-scrollbar,
+.comment-section::-webkit-scrollbar,
+#code-area::-webkit-scrollbar {
+    width: 10px;
+}
+
+.sidebar::-webkit-scrollbar-thumb,
+.comment-section::-webkit-scrollbar-thumb,
+#code-area::-webkit-scrollbar-thumb {
+    background-color: #3498db;
+    border-radius: 5px;
+}
+
+.sidebar::-webkit-scrollbar-track,
+.comment-section::-webkit-scrollbar-track,
+#code-area::-webkit-scrollbar-track {
+    background-color: #ecf0f1;
+}
+
+#language-select {
+    background-color: #f4f4f4;
+    color: #2c3e50;
+    border: 1px solid #3498db;
+    border-radius: 4px;
+    font-size: 14px;
+    padding: 5px;
+}
+
+#language-select option {
+    color: #2c3e50;
+}
+
+
+/* Add Collaborators Button */
+/* button#addcollaborators {
+    background-color: #5bc0de;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 10px;
+    border-radius: 5px;
+} */
+
+/* button#addcollaborators:hover {
+    background-color: #31b0d5;
+} */
+
+/* Modal styles */
+#collaboratorModal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+#collaboratorModal .modal-content {
+    background-color: white;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    position: relative;
+    text-align: center;
+}
+
+#collaboratorModal .closeBtn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+#collaboratorModal .input-box {
+    margin: 15px 0;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+#collaboratorModal .input-box input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 97%;
+    font-size: 16px;
+}
+
+/* Submit Button */
+#collaboratorModal .submit-btn {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#collaboratorModal .submit-btn:hover {
+    background-color: #218838;
+}
+
+/* Show modal */
+#collaboratorModal.show {
+    display: block;
+}
+.input-box {
+    margin: 15px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.input-box input, .input-box select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    font-size: 16px;
+}
+
+/* Label for the Role Dropdown */
+.input-box label {
+    margin-bottom: 5px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* Delete Collaborator Modal styles */
+#deleteCollaboratorModal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Same as collaborator modal */
+}
+
+#deleteCollaboratorModal .modal-content {
+    background-color: white;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    position: relative;
+    text-align: center;
+}
+
+#deleteCollaboratorModal .closeDeleteBtn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+#deleteCollaboratorModal .input-box {
+    margin: 15px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+#deleteCollaboratorModal .input-box input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 97%;
+    font-size: 16px;
+}
+
+/* Delete Button */
+#deleteCollaboratorModal .submit-btn {
+    background-color: #dc3545; /* Red for delete */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#deleteCollaboratorModal .submit-btn:hover {
+    background-color: #c82333;
+}
+
+
+#deleteCollaboratorModal.show {
+    display: block;
+}
+
+.project.active {
+    background-color: #f0f0f0; 
+    color: #333; 
+    border-left: 4px solid #007bff; 
+}
+.versionDropdown{
+    width: 100%;
+    height: 50px;
+    font-size: 20px;
+    border: 2px solid;
+    border-radius: 10px
+}
+.loadVersionBtn{
+    height: 12px;
+    font-size: 20px;
+    text-align: center;
+    width: 86%;
+    padding-bottom: 45px;
+    margin-top: 30px;
+}
+.modal-content{
+    text-align: center;
+    position: relative;
+}
+#confirmForkBtn{
+    font-size: 20px;
+    margin-top: 30px;
+    margin-left: 0px;
+    padding: 15px;
+    height: 100%;
+}
+#forkProjectName{
+    width: 100%;
+    height: 35px;
+    border: 2px solid;
+    border-radius: 4px;
+}
+#loadVersionBtn{
+    font-size: 20px;
+    margin-top: 30px;
+    margin-left: 0px;
+    padding: 15px;
+    height: 100%
+}
+.closeVersionsBtn{
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+}
+.closeForkBtn{
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+}

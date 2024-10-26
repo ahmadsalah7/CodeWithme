@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In / Sign Up</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="form-box">
+            <!-- Sign In Form -->
+            <form id="sign-in-form">
+                <h2>Sign In</h2>
+                <div class="input-box">
+                    <input type="email" id="login-email" required>
+                    <label>Email</label>
+                </div>
+                <div class="input-box">
+                    <input type="password" id="login-password" required>
+                    <label>Password</label>
+                </div>
+                <button type="submit" class="submit-btn">Sign In</button>
+                <div class="oauth-section">
+                    <button type="button" class="oauth-btn github-btn" onclick="loginWithGitHub()">Login with GitHub</button>
+                </div>
+                <p class="switch">Don't have an account? <a href="#" id="show-signup">Sign Up</a></p>
+            </form>
+
+            <!-- Sign Up Form -->
+            <form id="sign-up-form" class="hidden">
+                <h2>Sign Up</h2>
+                <div class="input-box">
+                    <input type="text" id="signup-username" required>
+                    <label>Username</label>
+                </div>
+                <div class="input-box">
+                    <input type="email" id="signup-email" required>
+                    <label>Email</label>
+                </div>
+                <div class="input-box">
+                    <input type="password" id="signup-password" required>
+                    <label>Password</label>
+                </div>
+                <div class="input-box">
+                    <input type="password" id="signup-repassword" required>
+                    <label>Re-write Password</label>
+                </div>
+                <button type="submit" class="submit-btn">Sign Up</button>
+                <p class="switch">Already have an account? <a href="#" id="show-signin">Sign In</a></p>
+            </form>
+        </div>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
