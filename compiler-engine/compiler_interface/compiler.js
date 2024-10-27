@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', initializeApp);
-const COMPILER_SERVER_BASE_URL = "http://54.147.137.89:9090";
-const LOGIN_SERVER_BASE_URL = "http://54.147.137.89:8081";
+const COMPILER_SERVER_BASE_URL = "http://44.222.203.63:9090";
+const LOGIN_SERVER_BASE_URL = "http://44.222.203.63:8081";
 let currentProjectId = null;
 let currentProjectVersions = [];
 
