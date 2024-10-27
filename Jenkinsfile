@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_HUB_CREDENTIALS = credentials('dockerhub-token')
+        DOCKER_HUB_CREDENTIALS = credentials('dockerhub_token')
         FRONTEND_IMAGE = 'ahmadmosalah/frontend'
         LOGIN_SERVICE_IMAGE = 'ahmadmosalah/login-service'
         COMPILER_SERVICE_IMAGE = 'ahmadmosalah/compiler-service'
