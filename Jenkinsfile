@@ -50,11 +50,11 @@ pipeline {
                 '''
                 
                 sh '''
-                    docker run -d --name mysql -e MYSQL_ROOT_PASSWORD=1234 -e MYSQL_USER=admin1 -e MYSQL_PASSWORD=admin1 -e MYSQL_DATABASE=code_editor_db -p 3306:3306 mysql:latest
+                    docker run -d --name code_editor_mysql -e MYSQL_ROOT_PASSWORD=1234 -e MYSQL_USER=admin1 -e MYSQL_PASSWORD=admin1 -e MYSQL_DATABASE=code_editor_db -p 3306:3306 mysql:latest
                 '''
                 
                 sh '''
-                    docker run -d --name mongodb -e MONGO_INITDB_ROOT_USERNAME=admin1 -e MONGO_INITDB_ROOT_PASSWORD=admin1 -p 27017:27017 mongo:latest
+                    docker run -d --name code_editor_mongodb -e MONGO_INITDB_ROOT_USERNAME=admin1 -e MONGO_INITDB_ROOT_PASSWORD=admin1 -p 27017:27017 mongo:latest
                 '''
 
                 sh '''
