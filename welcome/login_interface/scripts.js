@@ -1,5 +1,5 @@
-const LOGIN_SERVER_BASE_URL = "http://54.147.137.89:8081";
-const COMPILER_INTERFACE_URL = "http://54.147.137.89/compiler-engine/compiler_interface/compiler.html";
+const LOGIN_SERVER_BASE_URL = "http://44.222.203.63:8081";
+const COMPILER_INTERFACE_URL = "http://44.222.203.63/compiler_interface/compiler.html";
 
 document.addEventListener('DOMContentLoaded', function () {
     const signInForm = document.getElementById('sign-in-form');
