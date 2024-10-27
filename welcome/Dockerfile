@@ -4,12 +4,12 @@ WORKDIR /app
 
 RUN apt-get update && apt-get install -y maven && rm -rf /var/lib/apt/lists/*
 
-COPY ./welcome/login/pom.xml ./pom.xml
+COPY ./login/pom.xml ./pom.xml
 
 RUN --mount=type=cache,target=/root/.m2 \
     mvn dependency:go-offline -B
 
-COPY ./welcome/login /app
+COPY ./login /app
 
 RUN mvn clean package -DskipTests
 
