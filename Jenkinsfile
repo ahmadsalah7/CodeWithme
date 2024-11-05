@@ -1,4 +1,4 @@
-pipeline {
+    pipeline {
     agent any
 
     environment {
@@ -18,7 +18,6 @@ pipeline {
         stage('Docker Login') {
             steps {
                 script {
-                    // Manually log in to Docker Hub
                     sh "echo ${DOCKER_HUB_CREDENTIALS_PSW} | docker login -u ${DOCKER_HUB_CREDENTIALS_USR} --password-stdin"
                 }
             }
@@ -39,38 +38,18 @@ pipeline {
             }
         }
 
-        stage('Deploy Containers') {
-            steps {
-                sh '''
-                    docker network create code_editor_network || true
-                    docker rm -f frontend || true
-                    docker rm -f login-service || true
-                    docker rm -f compiler-service || true
-                    docker rm -f code_editor_mysql || true
-                    docker rm -f code_editor_mongodb || true
-                '''
-                
-                sh '''
-                    docker run -d --name code_editor_mysql --network code_editor_network -e MYSQL_ROOT_PASSWORD=1234 -e MYSQL_USER=admin1 -e MYSQL_PASSWORD=admin1 -e MYSQL_DATABASE=code_editor_db -p 3306:3306 mysql:latest
-                '''
-                
-                sh '''
-                    docker run -d --name code_editor_mongodb --network code_editor_network -e MONGO_INITDB_ROOT_USERNAME=admin1 -e MONGO_INITDB_ROOT_PASSWORD=admin1 -p 27017:27017 mongo:latest
-                '''
-        
-                sh '''
-                    docker run -d --name login-service --network code_editor_network -p 8081:8081 ${LOGIN_SERVICE_IMAGE}
-                '''
-                
-                sh '''
-                    docker run -d --name compiler-service --network code_editor_network -p 9090:9090 ${COMPILER_SERVICE_IMAGE}
-                '''
-                
-                sh '''
-                    docker run -d --name frontend --network code_editor_network -p 80:80 ${FRONTEND_IMAGE}
-                '''
-            }
+        stage('Deploy Containers with Docker Compose') {
+    steps {
+        script {
+            sh '''
+                docker-compose down || true
+                docker network create code_editor_backend_network || true
+            '''
+            sh 'docker-compose up -d --build'
         }
+    }
+}
+
     }
 
     post {
