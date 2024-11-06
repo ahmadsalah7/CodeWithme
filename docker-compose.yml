@@ -56,9 +56,6 @@ services:
     depends_on:
       - mysql
       - mongodb
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    user: root
 
   frontend:
     build:
