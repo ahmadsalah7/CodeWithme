@@ -16,7 +16,7 @@
         }
         stage('Clean Up Docker') {
             steps {
-                sh 'docker system prune -af'
+                sh 'docker system prune -f'
             }
         }
         stage('Docker Login') {
