@@ -75,6 +75,7 @@ services:
 
 volumes:
   mongo-data:
+  mysql_data_new:
 
 networks:
   code_editor_backend_network:
