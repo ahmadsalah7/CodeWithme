@@ -72,8 +72,6 @@ services:
 
 volumes:
   mongo-data:
-  mysql_data_new:
-    driver: local
 
 networks:
   code_editor_backend_network:
