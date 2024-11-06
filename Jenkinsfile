@@ -14,7 +14,11 @@
                 git url: 'https://github.com/ahmadsalah7/CodeWithme.git', branch: 'main'
             }
         }
-
+        stage('Clean Up Docker') {
+            steps {
+                sh 'docker system prune -af'
+            }
+        }
         stage('Docker Login') {
             steps {
                 script {
@@ -42,10 +46,11 @@
     steps {
         script {
             sh '''
-                docker-compose down || true
+                docker compose down || true
                 docker network create code_editor_backend_network || true
             '''
-            sh 'docker-compose up -d --build'
+            sh 'docker compose up -d --build'
+            sh 'docker compose logs'
         }
     }
 }
