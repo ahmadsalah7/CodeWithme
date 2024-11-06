@@ -34,13 +34,13 @@
         stage('Build and Push Docker Images') {
             steps {
                 script {
-                    sh 'docker build -t ${FRONTEND_IMAGE} -f Dockerfile .'
+                    sh 'docker build --no-cache -t ${FRONTEND_IMAGE} -f Dockerfile .'
                     sh 'docker push ${FRONTEND_IMAGE}'
                     
-                    sh 'docker build -t ${LOGIN_SERVICE_IMAGE} -f ./welcome/Dockerfile ./welcome'
+                    sh 'docker build --no-cache -t ${LOGIN_SERVICE_IMAGE} -f ./welcome/Dockerfile ./welcome'
                     sh 'docker push ${LOGIN_SERVICE_IMAGE}'
                     
-                    sh 'docker build -t ${COMPILER_SERVICE_IMAGE} -f ./compiler-engine/Dockerfile ./compiler-engine'
+                    sh 'docker build --no-cache -t ${COMPILER_SERVICE_IMAGE} -f ./compiler-engine/Dockerfile ./compiler-engine'
                     sh 'docker push ${COMPILER_SERVICE_IMAGE}'
                 }
             }
