@@ -34,8 +34,8 @@ services:
 
   login-service:
     build:
-      context: .
-      dockerfile: ./welcome/Dockerfile
+      context: ./welcome
+      dockerfile: Dockerfile
     container_name: login_service
     ports:
       - "8081:8081"
@@ -46,8 +46,8 @@ services:
 
   compiler-service:
     build:
-      context: .
-      dockerfile: ./compiler-engine/Dockerfile
+      context: ./compiler-engine
+      dockerfile: Dockerfile
     container_name: compiler_service
     ports:
       - "9090:9090"
@@ -60,7 +60,7 @@ services:
   frontend:
     build:
       context: .
-      dockerfile: ./Dockerfile
+      dockerfile: Dockerfile
     container_name: code_editor_frontend
     ports:
       - "80:80"
