@@ -49,7 +49,7 @@
             steps {
                 script {
                     sh 'docker compose down || true'
-                    sh 'docker compose up -d --build'
+                    sh 'docker compose up --build --no-cache -d'
                     sh 'docker compose logs'
                 }
             }
