@@ -13,7 +13,7 @@ services:
     ports:
       - "3301:3306"
     volumes:
-      - ./mysql_data_new:/var/lib/mysql
+      - mysql_data:/var/lib/mysql
       - ./mysql_schema/mysql_schema.sql:/docker-entrypoint-initdb.d/mysql_schema.sql
     networks:
       - code_editor_backend_network
@@ -74,6 +74,7 @@ services:
 
 volumes:
   mongo-data:
+  mysql_data:
 
 networks:
   code_editor_backend_network:
