@@ -58,7 +58,7 @@ services:
       - mongodb
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock 
-      - ./compiler-engine/temp:/temp
+      - ./compiler-engine/temp:/code
 
   frontend:
     build:
