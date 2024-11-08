@@ -66,6 +66,8 @@ public class CodeExecutionService {
         } else {
             throw new IllegalArgumentException("Unsupported language: " + language);
         }
+        File codeDirectory = new File("/code");
+        codeDirectory.mkdirs();
         return File.createTempFile("CodeSnippet", extension);
     }
 
