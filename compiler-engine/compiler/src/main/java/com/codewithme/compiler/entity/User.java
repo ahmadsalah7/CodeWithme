@@ -13,7 +13,6 @@ public class User {
     @Column(name="id")
     private int id;
 
-    @Setter
     @Column(name="username")
     private String username;
 

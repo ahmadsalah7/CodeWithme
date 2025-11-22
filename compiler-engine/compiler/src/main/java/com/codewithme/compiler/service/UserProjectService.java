@@ -1,6 +1,5 @@
 package com.codewithme.compiler.service;
 
-import com.codewithme.compiler.entity.User;
 import com.codewithme.compiler.entity.UserProject;
 import com.codewithme.compiler.repository.UserProjectRepository;
 import com.codewithme.compiler.util.Role;

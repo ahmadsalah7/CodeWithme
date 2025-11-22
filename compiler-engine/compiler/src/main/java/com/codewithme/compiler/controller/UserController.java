@@ -34,7 +34,7 @@ public class UserController {
     }
 
     @PostMapping("/getuserdata")
-    public ResponseEntity<Map<String, String>> getUserInfo(@RequestBody Map<String, Object> userInfo) throws IOException {
+    public ResponseEntity<Map<String, String>> getUserInfo(@RequestBody Map<String, Object> userInfo) {
         String email = (String) userInfo.get("email");
 
         if (email != null) {

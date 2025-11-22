@@ -1,18 +1,24 @@
-FROM openjdk:17-jdk-slim
 
-WORKDIR /app
 
-RUN apt-get update && apt-get install -y maven && rm -rf /var/lib/apt/lists/*
+# RUN --mount=type=cache,target=/root/.m2 \
+#     mvn dependency:go-offline -B
 
-COPY ./login/pom.xml ./pom.xml
+# COPY ./login /app
 
-RUN --mount=type=cache,target=/root/.m2 \
-    mvn dependency:go-offline -B
+# RUN mvn clean package -DskipTests
 
-COPY ./login /app
+# RUN apt-get update && apt-get install -y maven && rm -rf /var/lib/apt/lists/*
 
-RUN mvn clean package -DskipTests
+FROM amazoncorretto:17-alpine3.22-jdk
 
-EXPOSE 8081
+EXPOSE 9090
 
-ENTRYPOINT ["java", "-jar", "target/login-0.0.1-SNAPSHOT.jar"]
+RUN apk update && \
+    apk add --no-cache python3 py3-pip g++
+
+
+COPY ./compiler/pom.xml ./pom.xml
+COPY ./compiler/target/*.jar ./application.jar
+
+
+ENTRYPOINT ["java", "-jar", "application.jar"]

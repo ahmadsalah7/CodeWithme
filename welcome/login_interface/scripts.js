@@ -1,5 +1,5 @@
-const LOGIN_SERVER_BASE_URL = "http://23.23.51.5:8081";
-const COMPILER_INTERFACE_URL = "http://23.23.51.5/compiler_interface/compiler.html";
+const LOGIN_SERVER_BASE_URL = "http://localhost:8080";
+const COMPILER_INTERFACE_URL = "http://localhost/compiler_interface/compiler.html";
 
 document.addEventListener('DOMContentLoaded', function () {
     const signInForm = document.getElementById('sign-in-form');
@@ -83,6 +83,7 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(data => {
             localStorage.setItem("token", data.token);
+            console.log(data.token);
             window.location.href = COMPILER_INTERFACE_URL;
         })
         .catch((error) => {
@@ -108,7 +109,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
             else{
                 return response.json().then(data =>{
-                    alert(`${data.message}, An error occurred! Please try again.`)
+                    alert(`${data.message}, An error occurred! Please try again. ${response.status}`);
                 })
             }
         })

@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', initializeApp);
-const COMPILER_SERVER_BASE_URL = "http://23.23.51.5:9090";
-const LOGIN_SERVER_BASE_URL = "http://23.23.51.5:8081";
+const COMPILER_SERVER_BASE_URL = "http://localhost:9090";
+const LOGIN_SERVER_BASE_URL = "file:///home/ahmad-salah/code-with-me/welcome/login_interface/index.html";
 let currentProjectId = null;
 let currentProjectVersions = [];
 

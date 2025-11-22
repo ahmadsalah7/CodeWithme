@@ -1,5 +1,7 @@
 package com.codewithme.compiler.service;
 
+import com.codewithme.compiler.models.CodeExecutionModel;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
@@ -7,24 +9,24 @@ import java.io.*;
 import java.util.concurrent.CompletableFuture;
 
 @Service
+@Slf4j
 public class CodeExecutionService {
 
     @Async
-    public CompletableFuture<String> execute(String language, String code, String input) {
+    public CompletableFuture<String> execute(CodeExecutionModel codeExecution) {
         try {
-            File codeFile = createTempCodeFile(language);
+            File codeFile = createTempCodeFile(codeExecution.getLanguage());
 
-            // Adjust Java class name in code if needed
-            if ("java".equalsIgnoreCase(language)) {
+            if ("java".equalsIgnoreCase(codeExecution.getLanguage())) {
                 String fileNameWithoutExtension = stripExtension(codeFile.getName());
-                code = replaceClassName(code, fileNameWithoutExtension);
+                codeExecution.setCode(replaceClassName(codeExecution.getCode(), fileNameWithoutExtension));
             }
 
-            writeCodeToFile(codeFile, code);
+            writeCodeToFile(codeFile, codeExecution.getCode());
 
-            File inputFile = (input != null && !input.isEmpty()) ? saveInputToFile(input) : null;
+            File inputFile = (codeExecution.getInput() != null && !codeExecution.getInput().isEmpty()) ? saveInputToFile(codeExecution.getInput()) : null;
 
-            String dockerCommand = buildDockerCommand(language, codeFile, inputFile);
+            String dockerCommand = buildCommand(codeExecution.getLanguage(), codeFile, inputFile);
             System.out.println("Executing Docker command: " + dockerCommand);
 
             ProcessBuilder processBuilder = new ProcessBuilder("bash", "-c", dockerCommand);
@@ -52,6 +54,31 @@ public class CodeExecutionService {
             Thread.currentThread().interrupt();  // Preserve interrupt status
             return CompletableFuture.completedFuture("Execution failed: " + e.getMessage());
         }
+    }
+
+    private String buildCommand(String language, File codeFile, File inputFile) {
+        String runCommand = "";
+
+        String codeFilePath = convertToUnixPath(codeFile.getAbsolutePath());
+        switch (language.toLowerCase()) {
+            case "java":
+                runCommand = "java " + codeFilePath;
+                break;
+            case "python":
+                runCommand = "python " + codeFilePath;
+                break;
+            case "cpp":
+                runCommand = "g++ " + codeFilePath + " -o output && ./output";
+                break;
+            default:
+                throw new IllegalArgumentException("Unsupported language: " + language);
+        }
+
+        if (inputFile != null) {
+            runCommand += " < " + "/tmp/" + inputFile.getName();
+        }
+
+        return runCommand;
     }
 
 
@@ -94,24 +121,24 @@ public class CodeExecutionService {
         String dockerImage;
         String runCommand = "";
 
+        String codeFilePath = convertToUnixPath(codeFile.getAbsolutePath());
         switch (language.toLowerCase()) {
             case "java":
                 dockerImage = "openjdk:17";
-                runCommand = "javac " + codeFile.getName() + " && java " + stripExtension(codeFile.getName());
+                runCommand = "javac " + codeFilePath + " && java " + stripExtension(codeFile.getName());
                 break;
             case "python":
                 dockerImage = "python:latest";
-                runCommand = "python " + codeFile.getName();
+                runCommand = "python " + codeFilePath;
                 break;
             case "cpp":
                 dockerImage = "gcc:latest";
-                runCommand = "g++ " + codeFile.getName() + " -o output && ./output";
+                runCommand = "g++ " + codeFilePath + " -o output && ./output";
                 break;
             default:
                 throw new IllegalArgumentException("Unsupported language: " + language);
         }
 
-        String codeFilePath = convertToUnixPath(codeFile.getAbsolutePath());
 
         StringBuilder dockerCommand = new StringBuilder();
         dockerCommand.append("docker run --rm ")

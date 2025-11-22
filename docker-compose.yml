@@ -15,8 +15,8 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
       - ./mysql_schema/mysql_schema.sql:/docker-entrypoint-initdb.d/mysql_schema.sql
-    networks:
-      - code_editor_backend_network
+    # networks:
+    #   - code_editor_backend_network
 
   mongodb:
     image: mongo:latest
@@ -29,20 +29,32 @@ services:
       - "27017:27017"
     volumes:
       - mongo-data:/data/db
-    networks:
-      - code_editor_backend_network
 
-  login-service:
+  login-service:  
     build:
       context: ./welcome
-      dockerfile: Dockerfile
     container_name: login_service
     ports:
-      - "8081:8081"
-    networks:
-      - code_editor_backend_network
+      - "8080:8080"
+    environment:
+     DATABASE_URL: jdbc:mysql://mysql:3306/code_editor_db
+     DATABASE_USERNAME: admin1
+     DATABASE_PASSWORD: admin1
     depends_on:
       - mysql
+  
+  dind:
+    image: docker:dind
+    container_name: docker_dind
+    privileged: true
+    restart: always
+    environment:
+      DOCKER_TLS_CERTDIR: ""
+    ports:
+      - "2375:2375"
+    command: ["--host=tcp://0.0.0.0:2375", "--host=unix:///var/run/docker.sock"]
+    volumes:
+      - ./compiler-engine/temp:/code
 
   compiler-service:
     build:
@@ -51,24 +63,30 @@ services:
     container_name: compiler_service
     ports:
       - "9090:9090"
-    networks:
-      - code_editor_backend_network
+    environment:
+     DATABASE_URL: jdbc:mysql://mysql:3306/code_editor_db
+     DATABASE_USERNAME: admin1
+     DATABASE_PASSWORD: admin1
+     MONGODB_URI: mongodb://admin1:admin1@code_editor_mongodb:27017/code_editor_db?authSource=admin
+     MONGO_INITDB_ROOT_USERNAME: admin1
+     MONGO_INITDB_ROOT_PASSWORD: admin1 
+     DOCKER_HOST: tcp://dind:2375   
+
     depends_on:
       - mysql
       - mongodb
+      - dind
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock 
-      - ./compiler-engine/temp:/code
+       - ./compiler-engine/temp:/code
 
   frontend:
     build:
-      context: .
+      context: ./login_interface
       dockerfile: Dockerfile
     container_name: code_editor_frontend
     ports:
       - "80:80"
-    networks:
-      - code_editor_backend_network
+
     depends_on:
       - login-service
       - compiler-service
@@ -76,7 +94,7 @@ services:
 volumes:
   mongo-data:
   mysql_data:
+  snippets:
 
-networks:
-  code_editor_backend_network:
-    driver: bridge
+# networks: check them later and try to hide the databases in separate network not in the same network with
+

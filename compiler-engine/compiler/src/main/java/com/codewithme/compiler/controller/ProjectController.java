@@ -12,17 +12,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.locks.ReentrantLock;
 
 @RestController
 @RequestMapping("/projects")
 public class ProjectController {
 
-    private ProjectService projectService;
-    private UserProjectService userProjectService;
-    private UserService userService;
+    private final ProjectService projectService;
+    private final UserProjectService userProjectService;
+    private final UserService userService;
 
     @Autowired
     public ProjectController(ProjectService projectService , UserProjectService userProjectService , UserService userService ) {
@@ -32,7 +29,7 @@ public class ProjectController {
     }
 
     @PostMapping("/create")
-    public Project createProject( @RequestBody CreateProjectRequest request) {
+    public Project createProject(@RequestBody CreateProjectRequest request) {
         return projectService.createProject(request.getProjectName(), request.getOwnerEmail() ,request.getContent());
     }
     @PostMapping("/delete")
